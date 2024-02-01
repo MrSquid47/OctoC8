@@ -1,0 +1,33 @@
+package main
+
+import (
+	"time"
+
+	"github.com/faiface/beep"
+	"github.com/faiface/beep/generators"
+	"github.com/faiface/beep/speaker"
+)
+
+var beeping bool = false
+var prevbeep int64
+var sr beep.SampleRate
+
+func beep_init() {
+	sr = beep.SampleRate(44100)
+	speaker.Init(sr, 1800)
+}
+
+func beep_start() {
+	if !beeping {
+		sine, _ := generators.TriangleTone(sr, 350)
+		speaker.Play(sine)
+		beeping = true
+	}
+}
+
+func beep_stop() {
+	if beeping && (time.Now().UnixMilli()-prevbeep) > 100 {
+		speaker.Clear()
+		beeping = false
+	}
+}
