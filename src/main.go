@@ -46,6 +46,15 @@ func main() {
 	load_file("../roms/chip8-test-suite.ch8")
 	//load_file("../roms/BRIX")
 
+	//load_file("../roms/test-suite/1-chip8-logo.ch8")
+	//load_file("../roms/test-suite/2-ibm-logo.ch8")
+	//load_file("../roms/test-suite/3-corax+.ch8")
+	//load_file("../roms/test-suite/4-flags.ch8")
+	//load_file("../roms/test-suite/5-quirks.ch8")
+	//load_file("../roms/test-suite/6-keypad.ch8")
+	//load_file("../roms/test-suite/7-beep.ch8")
+	//load_file("../roms/test-suite/8-scrolling.ch8")
+
 	window, err := glfw.CreateWindow(64*RENDER_MULTIPLIER, 32*RENDER_MULTIPLIER, "OctoC8", nil, nil)
 	if err != nil {
 		panic(err)
