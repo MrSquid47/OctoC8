@@ -103,7 +103,7 @@ func main() {
 				}
 			}
 
-			if (16666667 - timer_elapsed(last_cycle)) >= 1000000 {
+			if (16666667 - timer_elapsed(timer_delay.prevtick)) >= 1000000 {
 				time.Sleep(1 * time.Millisecond)
 			}
 		}
