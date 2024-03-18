@@ -53,10 +53,5 @@ func load_file(path string) {
 }
 
 func get_coord_location(x int, y int) int {
-	loc := 0
-	for i := 0; i < y; i++ {
-		loc += 64
-	}
-	loc += x
-	return loc
+	return x + (64 * y)
 }
