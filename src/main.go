@@ -13,7 +13,8 @@ import (
 )
 
 const RENDER_MULTIPLIER = 20
-const CPU_FREQUENCY = 1800
+const CPU_FREQUENCY = 600
+const QUIRK_DISPLAY_WAIT = false
 
 var ticks int64
 
@@ -43,8 +44,8 @@ func main() {
 	fmt.Println("initialized")
 	mem_init()
 	//load_file("../roms/snake.ch8")
-	load_file("../roms/chip8-test-suite.ch8")
-	//load_file("../roms/BRIX")
+	//load_file("../roms/chip8-test-suite.ch8")
+	load_file("../roms/BRIX")
 
 	//load_file("../roms/test-suite/1-chip8-logo.ch8")
 	//load_file("../roms/test-suite/2-ibm-logo.ch8")
@@ -110,7 +111,7 @@ func main() {
 
 	// CPU Loop
 	go func() {
-		var cycsteps int = int(math.Round(CPU_FREQUENCY / 500.0))
+		var cycsteps int = int(math.Round(CPU_FREQUENCY / 200.0))
 		var substeps int
 		last_cycle = get_timer()
 
@@ -124,10 +125,10 @@ func main() {
 				if substeps >= cycsteps {
 					substeps = 0
 					for {
-						if timer_elapsed(last_cycle) >= 2000000 {
+						if timer_elapsed(last_cycle) >= 5000000 {
 							last_cycle = get_timer()
 							break
-						} else if (2000000 - timer_elapsed(last_cycle)) > 1000000 {
+						} else if (5000000 - timer_elapsed(last_cycle)) > 1000000 {
 							// Only busy wait when we drop under 1ms remaining
 							time.Sleep(1 * time.Millisecond)
 						}

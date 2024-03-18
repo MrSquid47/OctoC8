@@ -162,15 +162,17 @@ func cpu_step() {
 		r1 := rand.New(s1)
 		*reg = byte(r1.Intn(256)) & mask
 	case 0xD:
-		if !draw_sync {
-			draw_sync = true
-			draw_wait = true
-			PC = PC - 2
-			break
-		} else {
-			if draw_wait {
+		if QUIRK_DISPLAY_WAIT {
+			if !draw_sync {
+				draw_sync = true
+				draw_wait = true
 				PC = PC - 2
 				break
+			} else {
+				if draw_wait {
+					PC = PC - 2
+					break
+				}
 			}
 		}
 		draw_sync = false
@@ -178,6 +180,7 @@ func cpu_step() {
 		reg_X := fetch_register(uint8((instr >> (8)) & 0xf))
 		reg_Y := fetch_register(uint8((instr >> (4)) & 0xf))
 		var coord_X byte
+		var tmp_X byte = *reg_X & 63
 		coord_Y := *reg_Y & 31
 		reg_VF = 0x0
 		var i uint16
@@ -187,7 +190,7 @@ func cpu_step() {
 			}
 
 			var sprite_row byte = sys_memory[reg_I+i]
-			coord_X = *reg_X & 63
+			coord_X = tmp_X
 			for j := 0; j < 8; j++ {
 				if coord_X >= 64 {
 					break

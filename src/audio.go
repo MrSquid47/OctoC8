@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/faiface/beep"
+	"github.com/faiface/beep/effects"
 	"github.com/faiface/beep/generators"
 	"github.com/faiface/beep/speaker"
 )
@@ -19,8 +20,14 @@ func beep_init() {
 
 func beep_start() {
 	if !beeping {
-		sine, _ := generators.TriangleTone(sr, 350)
-		speaker.Play(sine)
+		sine, _ := generators.SquareTone(sr, 300)
+		volume := &effects.Volume{
+			Streamer: sine,
+			Base:     2,
+			Volume:   -3,
+			Silent:   false,
+		}
+		speaker.Play(volume)
 		beeping = true
 	}
 }
