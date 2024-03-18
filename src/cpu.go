@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
 	"time"
 )
 
@@ -158,9 +157,7 @@ func cpu_step() {
 	case 0xC:
 		reg := fetch_register(uint8((instr >> (8)) & 0xf))
 		mask := byte(instr & 0xFF)
-		s1 := rand.NewSource(time.Now().UnixNano())
-		r1 := rand.New(s1)
-		*reg = byte(r1.Intn(256)) & mask
+		*reg = byte(rand_gen.Intn(256)) & mask
 	case 0xD:
 		if QUIRK_DISPLAY_WAIT {
 			if !draw_sync {

@@ -43,9 +43,9 @@ func main() {
 
 	fmt.Println("initialized")
 	mem_init()
-	//load_file("../roms/snake.ch8")
+	load_file("../roms/snake.ch8")
 	//load_file("../roms/chip8-test-suite.ch8")
-	load_file("../roms/BRIX")
+	//load_file("../roms/BRIX")
 
 	//load_file("../roms/test-suite/1-chip8-logo.ch8")
 	//load_file("../roms/test-suite/2-ibm-logo.ch8")

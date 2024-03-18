@@ -3,7 +3,9 @@ package main
 import (
 	"io"
 	"log"
+	"math/rand"
 	"os"
+	"time"
 )
 
 var fontset = [...]byte{
@@ -29,12 +31,14 @@ var sys_memory []byte
 var video_memory []bool = make([]bool, 2048)
 var keypad []bool = make([]bool, 16)
 var keywait int = -1
+var rand_gen *rand.Rand
 
 func mem_init() {
 	sys_memory = make([]byte, 4096)
 	for i := 0; i < len(fontset); i++ {
 		sys_memory[i+80] = fontset[i]
 	}
+	rand_gen = rand.New(rand.NewSource(time.Now().UnixNano()))
 }
 
 func load_file(path string) {
